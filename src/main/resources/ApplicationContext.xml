@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="Actor1" class="com.spring.example1.Actor">
+        <property name="id" value="1"/>
+        <property name="name" value="Alice"/>
+        <property name="age" value="30"/>
+        <property name="gender" value="FEMALE"/>
+        <property name="egoMetrics" ref="EgoMetrics"/>
+    </bean>
+
+    <bean id="Actor2" class="com.spring.example1.Actor"
+        p:id="2"
+        p:name="Bob"
+        p:age="40"
+        p:gender="MALE">
+        <property name="egoMetrics" ref="EgoMetrics"/>
+    </bean>
+
+
+    <bean id="Movie1" class="com.spring.example1.Movie">
+        <constructor-arg index="0" value="1"/>
+        <constructor-arg index="1" value="action action"/>
+        <constructor-arg index="2" value="ACTION"/>
+        <property name="actors" ref="actorsInMovie1"/>
+        <constructor-arg index="3" value="7"/>
+
+    </bean>
+
+    <bean id="Movie2" class="com.spring.example1.Movie"
+          c:id="2"
+          c:name="comdey comedy"
+          c:genre="COMEDY"
+          c:rating="9">
+        <property name="actors" ref="actorsInMovie2"/>
+
+    </bean>
+    
+    <bean id="MovieDAO" class="com.spring.example1.MovieDAO">
+          <property name="movies" ref="movieList"/>
+    </bean>
+
+    <bean id="EgoMetrics" class="com.spring.example1.EgoMetrics" scope="prototype">
+
+
+    </bean>
+
+
+    <util:list id="actorsInMovie1" >
+            <ref bean="Actor1"/>
+    </util:list>
+
+    <util:list id="actorsInMovie2" >
+            <ref bean="Actor1"/>
+    </util:list>
+
+    <util:map id="actorsList">
+        <entry>
+            <key>
+                <value>1</value>
+            </key>
+            <ref bean="Actor1"></ref>
+        </entry>
+        <entry>
+            <key><value>2</value></key>
+            <ref bean="Actor2"></ref>
+        </entry>
+    </util:map>
+
+
+    <util:map id="movieList">
+        <entry>
+            <key><value>1</value></key>
+            <ref bean="Movie1"></ref>
+        </entry>
+        <entry>
+            <key><value>2</value></key>
+            <ref bean="Movie2"></ref>
+        </entry>
+    </util:map>
+
+
+</beans>
